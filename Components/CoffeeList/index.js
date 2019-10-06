@@ -3,14 +3,15 @@ import React, { Component } from "react";
 // NativeBase Components
 import { List, Content } from "native-base";
 
-// Store
-import coffeeshops from "./list";
-
 // Component
 import CoffeeItem from "./CoffeeItem";
 
+import { connect } from "react-redux";
+
 class CoffeeList extends Component {
   render() {
+    const coffeeshops = this.props.coffeeShops;
+
     let shops;
     if (coffeeshops) {
       shops = coffeeshops.map(coffeeShop => (
@@ -25,4 +26,10 @@ class CoffeeList extends Component {
   }
 }
 
-export default CoffeeList;
+const mapStateToProps = state => {
+  return {
+    coffeeShops: state.rootCoffee.coffeeShops
+  };
+};
+
+export default connect(mapStateToProps)(CoffeeList);
